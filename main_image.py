@@ -9,9 +9,9 @@ from utils_LP import character_recog_CNN, crop_n_rotate_LP
 
 Min_char = 0.01
 Max_char = 0.09
-image_path = 'data/test/images/clip4_new_3.jpg'
-CHAR_CLASSIFICATION_WEIGHTS = './src/weights/weight.h5'
-LP_weights = 'LP_detect_yolov7_500img.pt'
+image_path = '/content/drive/MyDrive/test_data/test_img.jpg'
+CHAR_CLASSIFICATION_WEIGHTS = '/content/drive/MyDrive/test_data/mrzaizai_cnn.h5'
+LP_weights = '/content/drive/MyDrive/test_data/yolov7_weights_1000imgs_4classes_25epoch.pt'
 
 model_char = CNN_Model(trainable=False).model
 model_char.load_weights(CHAR_CLASSIFICATION_WEIGHTS)
