@@ -25,14 +25,14 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
     # Initialize
 
 
-    half = device.type != 'cpu'  # half precision only supported on CUDA
+    #half = device.type != 'cpu'  # half precision only supported on CUDA
 
     # Load model
     # model = attempt_load(weights, map_location=device)  # load FP32 model
     stride = int(model.stride.max())  # model stride
     imgsz = check_img_size(imgsz, s=stride)  # check img_size
 
-    model.half()  # to FP16
+    #model.half()  # to FP16
 
     # Transform image to predict
     img, im0 = transform_img(image)
@@ -44,6 +44,7 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
     # Run inference
 
     t0 = time.time()
+    half = False
     img = torch.from_numpy(img).to(device)
     img = img.half() if half else img.float()  # uint8 to fp16/32
     img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -80,10 +81,7 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
 
 def main():
     weights = 'LP_detect_yolov7_500img.pt'
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    else:
-        device = torch.device("cpu")
+    device = torch.device("cpu")
 
     model = attempt_load(weights, map_location=device)
     image_path = 'data/test/images/clip3_new_3.jpg'

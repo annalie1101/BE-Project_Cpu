@@ -16,11 +16,7 @@ LP_weights = 'test_data/yolov7_weights_1000imgs_4classes_25epoch.pt'
 model_char = CNN_Model(trainable=False).model
 model_char.load_weights(CHAR_CLASSIFICATION_WEIGHTS)
 
-
-if torch.cuda.is_available():
-    device = torch.device("cuda")
-else:
-    device = torch.device("cpu")
+device = torch.device('cpu')
 
 model_LP = attempt_load(LP_weights, map_location=device)
 
