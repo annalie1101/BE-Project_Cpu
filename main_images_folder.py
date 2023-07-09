@@ -9,7 +9,6 @@ from src.char_classification.model import CNN_Model
 from utils_LP import character_recog_CNN, crop_img, crop_n_rotate_LP
 
 import glob
-from IPython.display import Image, display
 
 Min_char = 0.01
 Max_char = 0.09
