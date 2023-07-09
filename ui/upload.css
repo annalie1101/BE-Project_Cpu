@@ -1,0 +1,39 @@
+h2 {
+    text-align: center;
+}
+
+#imageUpload{
+    display: block;
+    margin: 0 auto;
+}
+
+#imagePreview{
+    text-align: center;
+}
+
+#imagePreview img{
+max-width: 300px;
+max-height: 300px;
+}
+
+#uploadButton {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#startButton{
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

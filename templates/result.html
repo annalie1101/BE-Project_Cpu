@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="new.css">
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid black;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .red-text {
+        color: red;
+      }
+    </style>
+    <title>Result</title>
+</head>
+<body>
+    <div style="text-align: center;" class="container">
+    <h2>ALPR <br>
+    <img src="{{ url_for('static', filename='alert.jpg') }}" alt="Image">
+    </h2>
+    <p>License Plate: {{ license_plate }}</p>
+    <table>
+        <tr>
+          <th>Original Image</th>
+          <th>Detection</th>
+          <th>Segmentation</th>
+          <th>CNN</th>
+        </tr>
+        <tr>
+          <td><img src="{{ url_for('static', filename='original_img.jpg') }}" alt="Image"></td>
+          <td><img src="{{ url_for('static', filename='detected_img.jpg') }}" alt="Image"></td>
+          <td><img src="{{ url_for('static', filename='segmented_img.jpg') }}" alt="Image"></td>
+          <td><img src="{{ url_for('static', filename='final_result.jpg') }}" alt="Image"></td>
+        </tr>
+    </table>
+    </div>
+
+</body>
+</html>
