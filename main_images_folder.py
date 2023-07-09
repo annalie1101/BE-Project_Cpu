@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import torch
 import os
+import shutil
 
 from detect import detect
 from models.experimental import attempt_load
@@ -10,10 +11,16 @@ from utils_LP import character_recog_CNN, crop_img, crop_n_rotate_LP
 
 import glob
 
+output_folder_path = "output"  # Update with your desired folder path
+if os.path.exists(output_folder_path):
+    shutil.rmtree(output_folder_path)
+
+os.makedirs(output_folder_path)
+
 Min_char = 0.01
 Max_char = 0.09
 #image_path = 'test_data/full_test_img.jpg'
-CHAR_CLASSIFICATION_WEIGHTS = 'test_data/mrzaizai_cnn.h5'
+CHAR_CLASSIFICATION_WEIGHTS = 'test_data/newweight331.h5'
 LP_weights = 'test_data/yolov7_weights_1000imgs_4classes_50epoch.pt'
 
 model_char = CNN_Model(trainable=False).model
@@ -29,6 +36,8 @@ image_paths = glob.glob(image_folder_path)
 for path in image_paths:
     source_img = cv2.imread(path)
     #cv2.imshow('input', cv2.resize(source_img, dsize=None, fx=0.5, fy=0.5))
+    original_img = cv2.resize(source_img, dsize=None, fx=0.5, fy=0.5)
+    cv2.imwrite(os.path.join(output_folder_path, "original_img.jpg"), original_img)
     image_name = os.path.basename(path)
     print('########################################################################')
     print(image_name)
@@ -52,22 +61,29 @@ for path in image_paths:
             pred_head, head_detected_img = detect(model_LP, motorcycle_cropped_img, device, imgsz=640, classes=2)
             if pred_head is None:
                 pred_head, head_detected_img = detect(model_LP, motorcycle_cropped_img, device, imgsz=640, classes=3)
+
                 if pred_head is not None:
                     helmet = 'No Helmet Detected'
+                    shutil.copyfile('test_data/nohelmet.jpg', 'output/alert.jpg')
             else:
                 helmet = 'Helmet Detected'
+                shutil.copyfile('test_data/helmet.jpg', 'output/alert.jpg')
+
             print(helmet)
             #cv2.imshow('head_detected_img', cv2.resize(head_detected_img, dsize=None, fx=0.5, fy=0.5))
 
             # Detect LP
             print('Detecting LP...')
-            pred, LP_detected_img = detect(model_LP, motorcycle_cropped_img, device, imgsz=640, classes=0)
+            pred, LP_detected_img = detect(model_LP, head_detected_img, device, imgsz=640, classes=0)
             if pred is None:
                 print('No LP detected.')
             else:
                 #cv2.imshow('LP_detected_img', cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5))
+                detected_img = cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5)
+                cv2.imwrite(os.path.join(output_folder_path, "detected_img.jpg"), detected_img)
 
                 c = 0
+                lplist = []
                 for *xyxy, conf, cls in reversed(pred):
                     # Crop and Rotate LP
                     x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
@@ -144,12 +160,18 @@ for path in image_paths:
                                 2)
                     #cv2.imshow('charac', LP_rotated_copy)
                     #cv2.imshow('LP_rotated_{}'.format(c), LP_rotated)
-                    cv2.imshow(image_name, LP_rotated)
+                    cv2.imwrite(os.path.join(output_folder_path, "segmented_img.jpg"), LP_rotated)
+                    #cv2.imshow(image_name, LP_rotated)
                     print('License Plate_{}:'.format(c), strFinalString)
+                    lplist.append(strFinalString)
                     c += 1
 
                 #cv2.imshow('final_result', cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5))
+                final_result = cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5)
+                cv2.imwrite(os.path.join(output_folder_path, "final_result.jpg"), final_result)
+
                 print('Finally Done!')
                 #cv2.waitKey(0)
 
+                print(lplist[0], helmet)
 
