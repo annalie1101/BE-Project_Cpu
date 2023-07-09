@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow
 from keras import optimizers
 from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
@@ -8,9 +9,9 @@ from src.char_classification import config
 from src.char_classification.data_provider import Datasets
 
 
-ALPHA_DICT = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'K', 9: 'L', 10: 'M', 11: 'N', 12: 'P',
-              13: 'R', 14: 'S', 15: 'T', 16: 'U', 17: 'V', 18: 'X', 19: 'Y', 20: 'Z', 21: '0', 22: '1', 23: '2', 24: '3',
-              25: '4', 26: '5', 27: '6', 28: '7', 29: '8', 30: '9', 31: "Background"}
+ALPHA_DICT = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'J', 9: 'K', 10: 'L', 11: 'M', 12: 'N',
+              13: 'P', 14: 'Q', 15: 'R', 16: 'S', 17: 'T', 18: 'U', 19: 'V', 20: 'W', 21: 'X', 22: 'Y', 23: 'Z',
+              24: '0', 25: '1', 26: '2', 27: '3', 28: '4', 29: '5', 30: '6', 31: '7', 32: '8', 33: '9'}
 
 
 class CNN_Model(object):
@@ -35,22 +36,19 @@ class CNN_Model(object):
         self.model.add(Conv2D(32, (3, 3), padding='same', activation='relu', input_shape=(28, 28, 1)))
         self.model.add(Conv2D(32, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.25))
 
         self.model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         self.model.add(Conv2D(64, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.25))
 
         self.model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         self.model.add(Conv2D(64, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.25))
 
         self.model.add(Flatten())
         self.model.add(Dense(512, activation='relu'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(32, activation='softmax'))
+        self.model.add(Dense(34, activation='softmax'))
 
     def train(self):
         # reduce learning rate

@@ -8,27 +8,25 @@ data = []
 
 for fi in os.listdir(path):
     if fi == "0":
-        label = 21
-    elif fi == "1":
-        label = 22
-    elif fi == "2":
-        label = 23
-    elif fi == "3":
         label = 24
-    elif fi == "4":
+    elif fi == "1":
         label = 25
-    elif fi == "5":
+    elif fi == "2":
         label = 26
-    elif fi == "6":
+    elif fi == "3":
         label = 27
-    elif fi == "7":
+    elif fi == "4":
         label = 28
-    elif fi == "8":
+    elif fi == "5":
         label = 29
-    elif fi == "9":
+    elif fi == "6":
         label = 30
-    elif fi == "BG":
+    elif fi == "7":
         label = 31
+    elif fi == "8":
+        label = 32
+    elif fi == "9":
+        label = 33
     else:
         label = -1
         ValueError("Don't match file")
@@ -65,32 +63,38 @@ for fi in os.listdir(path):
         label = 6
     elif fi == "H":
         label = 7
-    elif fi == "K":
+    elif fi == "J":
         label = 8
-    elif fi == "L":
+    elif fi == "K":
         label = 9
-    elif fi == "M":
+    elif fi == "L":
         label = 10
-    elif fi == "N":
+    elif fi == "M":
         label = 11
-    elif fi == "P":
+    elif fi == "N":
         label = 12
-    elif fi == "R":
+    elif fi == "P":
         label = 13
-    elif fi == "S":
+    elif fi == "Q":
         label = 14
-    elif fi == "T":
+    elif fi == "R":
         label = 15
-    elif fi == "U":
+    elif fi == "S":
         label = 16
-    elif fi == "V":
+    elif fi == "T":
         label = 17
-    elif fi == "X":
+    elif fi == "U":
         label = 18
-    elif fi == "Y":
+    elif fi == "V":
         label = 19
-    elif fi == "Z":
+    elif fi == "W":
         label = 20
+    elif fi == "X":
+        label = 21
+    elif fi == "Y":
+        label = 22
+    elif fi == "Z":
+        label = 23
     else:
         label = -1
         ValueError("Don't match file")

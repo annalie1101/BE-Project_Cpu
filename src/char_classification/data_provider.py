@@ -25,7 +25,7 @@ class Datasets(object):
             images.append(image)
             labels.append(label)
 
-        labels = keras.utils.to_categorical(labels, num_classes=32)
+        labels = keras.utils.to_categorical(labels, num_classes=34)
         return images, labels
 
     def convert_data_format(self):
