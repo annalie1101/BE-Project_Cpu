@@ -11,6 +11,9 @@ ALPHA_DICT = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8:
 
 
 def create_yaml():
+    """
+    Creates a YAML file named data.yaml
+    """
     data_yaml = dict(
         train='../input/vietnamese-license-plate/train',
         val='../input/vietnamese-license-plate/valid',
@@ -18,30 +21,36 @@ def create_yaml():
         names=['License Plate']
     )
 
-    # Note that I am creating the file in the yolov5/data/ directory.
     with open('data.yaml', 'w') as outfile:
         yaml.dump(data_yaml, outfile, default_flow_style=True)
 
 
 def character_recog_CNN(model, img, dict=ALPHA_DICT):
     '''
-    Turn character image to text
+    Performs OCR using the CNN model i.e. Turn character image to text
+    Resize, Reshape and Expand dimensions to match the input shape expected by the model
+    Predict result and return in text format using ALPHA_DICT
+
     :param model: Model character recognition
     :param img: threshold image no fixed size (white character, black background)
     :param dict: alphabet dictionary
     :return: ASCII text
     '''
+
+    # Resize, Reshape and Expand dimensions to match the input shape expected by the model
     imgROI = cv2.resize(img, (28, 28), cv2.INTER_AREA)
     imgROI = imgROI.reshape((28, 28, 1))
     imgROI = np.array(imgROI)
     imgROI = np.expand_dims(imgROI, axis=0)
+
     result = model.predict(imgROI, verbose='2')
-    result_idx = np.argmax(result, axis=1)
+    result_idx = np.argmax(result, axis=1) # index of the maximum value in the result
     return ALPHA_DICT[result_idx[0]]
 
 def crop_img(source_img, x1, y1, x2, y2):
     '''
-    Crop detected object from original image after yolov7
+    Crop detected object from original image based on coords
+
     :param source_img:
     :param x1,y1,x2,y2: coordinates of detected objects
     :return: cropped_img
@@ -50,12 +59,18 @@ def crop_img(source_img, x1, y1, x2, y2):
     w = int(x2 - x1)
     h = int(y2 - y1)
     cropped_img = source_img[y1:y1 + h, x1:x1 + w]
-    cropped_img_copy = cropped_img.copy()
+    cropped_img_copy = cropped_img.copy()  # Create copy of the cropped image to avoid modifying the original image.
     return cropped_img_copy
 
 def crop_n_rotate_LP(source_img, x1, y1, x2, y2):
     '''
-    Crop and rotate License Plate from original image after yolov7
+    Crop and rotate License Plate from original image based on coords
+    Calculates w, h and ratio of LP, Crops LP, applies preprocess(), canny edge, dilate
+    Applies Hough_Transform() to get lines of image
+    Calculates the rotation angle using rotation_angle()
+    Rotates the cropped LP using rotate_LP
+    Returns rotation angle, rotated thresholded image, and rotated LP image.
+
     :param source_img:
     :param x1,y1,x2,y2: coordinates of License Plate
     :return: angle, rotate_thresh, LP_rotated

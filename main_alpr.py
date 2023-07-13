@@ -7,13 +7,13 @@ from detect import detect
 from utils_LP import character_recog_CNN, crop_img, crop_n_rotate_LP
 
 def process_image(image_path, model_LP, model_char, device):
-    output_folder_path = "static"  # Update with your desired folder path
+    output_folder_path = "static"  # Path where the processed images will be saved
 
-    Min_char = 0.01
-    Max_char = 0.09
+    Min_char = 0.01  # Min char ratio
+    Max_char = 0.09  # Max char ratio
 
     source_img = cv2.imread(image_path)
-    original_img = cv2.resize(source_img, dsize=None, fx=0.5, fy=0.5)
+    original_img = cv2.resize(source_img, dsize=None, fx=0.5, fy=0.5)  # Resize to half its size
     cv2.imwrite(os.path.join(output_folder_path, "original_img.jpg"), original_img)
     image_name = os.path.basename(image_path)
     print('########################################################################')
@@ -25,6 +25,7 @@ def process_image(image_path, model_LP, model_char, device):
     if pred_motorcycle is None:
         print('No motorcycle detected.')
     else:
+        # Iterate over predicted motorcycle bounding boxes
         for *xyxy, conf, cls in reversed(pred_motorcycle):
             # Crop motorcycle
             x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
@@ -57,17 +58,18 @@ def process_image(image_path, model_LP, model_char, device):
 
                 c = 0
                 lplist = []
+                # Iterate over the predicted license plate bounding boxes
                 for *xyxy, conf, cls in reversed(pred):
                     # Crop and Rotate LP
                     x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
                     angle, rotate_thresh, LP_rotated = crop_n_rotate_LP(motorcycle_cropped_img, x1, y1, x2, y2)
-                    if (rotate_thresh is None) or (LP_rotated is None):
+                    if (rotate_thresh is None) or (LP_rotated is None):  # If the rotation or thresholding fails
                         continue
 
-                    #################### Prepocessing and Character segmentation ####################
+                    #################### Preprocessing and Character segmentation ####################
                     LP_rotated_copy = LP_rotated.copy()
-                    cont, hier = cv2.findContours(rotate_thresh, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-                    cont = sorted(cont, key=cv2.contourArea, reverse=True)[:17]
+                    cont, hier = cv2.findContours(rotate_thresh, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)  # Find contours
+                    cont = sorted(cont, key=cv2.contourArea, reverse=True)[:17]  # Contours sorted based on area and limited to the top 17 contours.
 
                     cv2.drawContours(LP_rotated_copy, cont, -1, (100, 255, 255), 2)  # Draw contours of characters in a LP
 
@@ -75,8 +77,9 @@ def process_image(image_path, model_LP, model_char, device):
                     char_x_ind = {}
                     char_x = []
                     height, width, _ = LP_rotated_copy.shape
-                    roiarea = height * width
+                    roiarea = height * width  #LP area
 
+                    # Iterate over each contour detected within the LP region.
                     for ind, cnt in enumerate(cont):
                         (x, y, w, h) = cv2.boundingRect(cont[ind])
                         ratiochar = w / h
@@ -91,8 +94,8 @@ def process_image(image_path, model_LP, model_char, device):
                     char_x = np.array(char_x)
 
                     ############ Character recognition ##########################
-                    threshold_12line = char_x[:, 1].min() + (char_x[:, 3].mean() / 2)
-                    char_x = sorted(char_x, key=lambda x: x[0], reverse=False)
+                    threshold_12line = char_x[:, 1].min() + (char_x[:, 3].mean() / 2)  # Line between lines in the double line LP
+                    char_x = sorted(char_x, key=lambda x: x[0], reverse=False)  # Sorts the contours based on their x-coordinates
                     strFinalString = ""
                     first_line = ""
                     second_line = ""
@@ -104,7 +107,7 @@ def process_image(image_path, model_LP, model_char, device):
                             continue
                         x, y, w, h = char
                         cv2.rectangle(LP_rotated, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                        imgROI = rotate_thresh[y:y + h, x:x + w]
+                        imgROI = rotate_thresh[y:y + h, x:x + w]  # Extracts single character region
                         text = character_recog_CNN(model_char, imgROI)
 
                         if text == '0':
@@ -113,6 +116,7 @@ def process_image(image_path, model_LP, model_char, device):
                         if text == 'Background':
                             text = ''
 
+                        # Enters the characters in proper order/place
                         if y < threshold_12line:
                             first_line += text
                         else:

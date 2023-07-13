@@ -30,12 +30,12 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
     # Load model
     # model = attempt_load(weights, map_location=device)  # load FP32 model
     stride = int(model.stride.max())  # model stride
-    imgsz = check_img_size(imgsz, s=stride)  # check img_size
+    imgsz = check_img_size(imgsz, s=stride)  # check img_size is a multiple of stride s
 
     #model.half()  # to FP16
 
     # Transform image to predict
-    img, im0 = transform_img(image)
+    img, im0 = transform_img(image)  # returns image in (np.ndarray form, cv2 form)
 
     # Get names and colors
     names = model.module.names if hasattr(model, 'module') else model.names
@@ -54,14 +54,14 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
     t1 = time_synchronized()
     pred = model(img, augment=augment)[0]
     t2 = time_synchronized()
-    # Apply NMS
+    # Apply NMS to remove overlapping bounding boxes and keep the most confident predictions.
     pred = non_max_suppression(pred, conf_thres, iou_thres, classes=classes, agnostic=agnostic_nms)
     t3 = time_synchronized()
     final_pred = []
 
     for i, det in enumerate(pred):  # detections per image
         if len(det):
-            # Rescale boxes from img_size to im0 size
+            # Rescale boxes from model's output img_size to original im0 size
             det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
             final_pred.append(det)
             # Write results
@@ -73,7 +73,7 @@ def detect(model, image, device, imgsz=640, conf_thres=0.25,
         print(f'Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
         print('Number of Detections:', len(det))
 
-        # cv2.imshow('Detected license plates', cv2.resize(im0, dsize=None, fx=0.5, fy=0.5))
+        # cv2.imshow('Detected Objects', cv2.resize(im0, dsize=None, fx=0.5, fy=0.5))
     if final_pred == [] or final_pred is None:
         return None, im0
 

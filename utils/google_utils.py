@@ -11,13 +11,14 @@ import torch
 
 
 def gsutil_getsize(url=''):
+    # Retrieves the size of a file stored in Google Cloud Storage
     # gs://bucket/file size https://cloud.google.com/storage/docs/gsutil/commands/du
     s = subprocess.check_output(f'gsutil du {url}', shell=True).decode('utf-8')
     return eval(s.split(' ')[0]) if len(s) else 0  # bytes
 
 
 def attempt_download(file, repo='WongKinYiu/yolov7'):
-    # Attempt file download if does not exist
+    # Attempt file download from a GitHub repo if it does not exist
     file = Path(str(file).strip().replace("'", '').lower())
 
     if not file.exists():
@@ -55,6 +56,7 @@ def attempt_download(file, repo='WongKinYiu/yolov7'):
 
 def gdrive_download(id='', file='tmp.zip'):
     # Downloads a file from Google Drive. from yolov7.utils.google_utils import *; gdrive_download()
+    # Handles large files by requesting a confirmation token
     t = time.time()
     file = Path(file)
     cookie = Path('cookie')  # gdrive cookie
@@ -89,35 +91,9 @@ def gdrive_download(id='', file='tmp.zip'):
 
 
 def get_token(cookie="./cookie"):
+    # Retrieves the confirmation token to bypass the download quota limitation
     with open(cookie) as f:
         for line in f:
             if "download" in line:
                 return line.split()[-1]
     return ""
-
-# def upload_blob(bucket_name, source_file_name, destination_blob_name):
-#     # Uploads a file to a bucket
-#     # https://cloud.google.com/storage/docs/uploading-objects#storage-upload-object-python
-#
-#     storage_client = storage.Client()
-#     bucket = storage_client.get_bucket(bucket_name)
-#     blob = bucket.blob(destination_blob_name)
-#
-#     blob.upload_from_filename(source_file_name)
-#
-#     print('File {} uploaded to {}.'.format(
-#         source_file_name,
-#         destination_blob_name))
-#
-#
-# def download_blob(bucket_name, source_blob_name, destination_file_name):
-#     # Uploads a blob from a bucket
-#     storage_client = storage.Client()
-#     bucket = storage_client.get_bucket(bucket_name)
-#     blob = bucket.blob(source_blob_name)
-#
-#     blob.download_to_filename(destination_file_name)
-#
-#     print('Blob {} downloaded to {}.'.format(
-#         source_blob_name,
-#         destination_file_name))

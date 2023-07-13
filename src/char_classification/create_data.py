@@ -2,10 +2,11 @@ import os
 import numpy as np
 import cv2
 
-path = "./data/categorized/digits/"
-data = []
+path = "./data/categorized/digits/"  # Directory with categorized digit image folders
+data = []  # List for image-label pairs
 
 
+# Iterate through each directory(Categorized digit image folder) in path and create appropriate label
 for fi in os.listdir(path):
     if fi == "0":
         label = 24
@@ -31,11 +32,11 @@ for fi in os.listdir(path):
         label = -1
         ValueError("Don't match file")
 
-    img_fi_path = os.listdir(path + fi)
+    img_fi_path = os.listdir(path + fi)  # List of images paths in each digit category
     for img_path in img_fi_path:
-        img = cv2.imread(path + fi + "/" + img_path, cv2.IMREAD_GRAYSCALE)
-        img = cv2.resize(img, (28, 28), cv2.INTER_AREA)
-        img = img.reshape((28, 28, 1))
+        img = cv2.imread(path + fi + "/" + img_path, cv2.IMREAD_GRAYSCALE)  # Loaded using cv2.imread() and converted to grayscale (cv2.IMREAD_GRAYSCALE)
+        img = cv2.resize(img, (28, 28), cv2.INTER_AREA)  # Resized to a shape of (28, 28)
+        img = img.reshape((28, 28, 1))  # Re-shaped to (28, 28, 1) by adding a new axis(channel dimension)
         data.append((img, label))
 
 

@@ -3,6 +3,12 @@ import cv2
 
 
 def get_digits_data(path):
+    """
+    Loads data from NumPy file(containing data about digit) specified by path param.
+    The data is shuffled randomly.
+    Returns the loaded data.
+    """
+
     data = np.load(path, allow_pickle=True)
     total_nb_data = len(data)
     np.random.shuffle(data)
@@ -18,6 +24,12 @@ def get_digits_data(path):
 
 
 def get_alphas_data(path):
+    """
+    Loads data from NumPy file(containing data about alpha(character)) specified by path param.
+    The data is shuffled randomly.
+    Returns the loaded data.
+    """
+
     data = np.load(path, allow_pickle=True)
     total_nb_data = len(data)
 
@@ -34,6 +46,12 @@ def get_alphas_data(path):
 
 
 def get_labels(path):
+    """
+    Reads labels from a text file specified by path param.
+    Lines of the file are read and stripped of leading or trailing whitespace.
+    Returns a list of labels.
+    """
+
     with open(path, 'r') as file:
         lines = file.readlines()
 
@@ -41,6 +59,12 @@ def get_labels(path):
 
 
 def draw_labels_and_boxes(image, labels, boxes):
+    """
+    Takes an image, labels, and bounding box coords as input.
+    Draws a rectangle around the box coords and adds labels to the image.
+    The modified image is returned.
+    """
+
     x_min = round(boxes[0])
     y_min = round(boxes[1])
     x_max = round(boxes[0] + boxes[2])
@@ -53,6 +77,12 @@ def draw_labels_and_boxes(image, labels, boxes):
 
 
 def get_output_layers(model):
+    """
+    Takes a model as input.
+    Retrieves the names of the output layers from the model.
+    Returns a list of output layer names.
+    """
+
     layers_name = model.getLayerNames()
     output_layers = [layers_name[i - 1] for i in model.getUnconnectedOutLayers()]
 
@@ -60,6 +90,12 @@ def get_output_layers(model):
 
 
 def order_points(coordinates):
+    """
+    Takes the coords of a rectangle (x_min, y_min, width, height) as input.
+    Orders the coords of the rectangle in a clockwise manner (top left, top right, bottom left, bottom right).
+    The ordered coords are returned as a NumPy array.
+    """
+
     rect = np.zeros((4, 2), dtype="float32")
     x_min, y_min, width, height = coordinates
 
@@ -74,9 +110,11 @@ def order_points(coordinates):
 
 def convert2Square(image):
     """
-    Resize non square image(height != width to square one (height == width)
-    :param image: input images
-    :return: numpy array
+    Resize non-square image(height != width) to square one (height == width)
+    If height > width, it adds zero-padding to left and right sides.
+    If width > height, it adds zero-padding to top and bottom.
+    If height == width, it is returned as is.
+    The squared image is returned as a NumPy array.
     """
 
     img_h = image.shape[0]

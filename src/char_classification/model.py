@@ -1,5 +1,4 @@
 import numpy as np
-import tensorflow
 from keras import optimizers
 from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
@@ -28,6 +27,7 @@ class CNN_Model(object):
             self.model.summary()
             self.data = Datasets()
 
+        # The model is compiled with categorical cross-entropy loss fn, Adam optimizer with learning rate 1e-3, and accuracy metric.
         self.model.compile(loss="categorical_crossentropy", optimizer=optimizers.Adam(1e-3), metrics=['acc'])
 
     def _build_model(self):
@@ -60,5 +60,6 @@ class CNN_Model(object):
         trainX, trainY = self.data.gen()
         trainX = np.array(trainX)
 
+        # training, verbose = display processing info or not
         self.model.fit(trainX, trainY, validation_split=0.15, callbacks=[cpt_save, reduce_lr], verbose=1,
                        epochs=self.num_epochs, shuffle=True, batch_size=self.batch_size)
