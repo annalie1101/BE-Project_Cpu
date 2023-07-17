@@ -4,193 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a33b8f-c95b-4891-83d7-c3c366c8b827" name="Changes" comment="ui + Front-end &amp; Back-end connection">
+    <list default="true" id="85a33b8f-c95b-4891-83d7-c3c366c8b827" name="Changes" comment="Delete old ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/r50-csp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/x50-csp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-csp-x.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-csp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-d6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-e6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-p6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolor-w6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolov3-spp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolov3.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/baseline/yolov4-csp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-d6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-e6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-e6e.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-tiny-silu.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-tiny.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7-w6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/deploy/yolov7x.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7-d6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7-e6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7-e6e.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7-tiny.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7-w6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/training/yolov7x.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/1_LP_sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/2_LP_sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hyp.scratch.custom.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hyp.scratch.p6.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/hyp.scratch.tiny.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3.2_new_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip3_new_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/images/clip4_new_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_10.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_11.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_12.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_13.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_14.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_15.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_16.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_17.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_18.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_7.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_8.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3.2_new_9.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_10.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_11.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_12.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_13.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_14.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_15.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_16.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_17.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_7.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_8.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip3_new_9.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_14.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_15.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_16.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_17.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/labels/clip4_new_6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/boundingbox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/data/dog.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/data/dog_result.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/labels.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/processing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/triton-inference-server/render.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/HoughLP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/LP crop and rotate thresh 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/LP crop and rotate thresh.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/LP crop and rotate.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/LP_detected_img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/LP_rotated2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/License_plate_cropped.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/char segment 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/final_result 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/imgROI.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/input2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/input_img.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/rotate_img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/rotate_thresh.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/export.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hubconf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_images_folder.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_video.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/paper/yolov7.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/YOLOv7-Dynamic-Batch-ONNXRUNTIME.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/YOLOv7-Dynamic-Batch-TENSORRT.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/YOLOv7CoreML.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/YOLOv7onnx.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/YOLOv7trt.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/compare_YOLOv7_vs_YOLOv5m6.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/compare_YOLOv7_vs_YOLOv5m6_half.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/compare_YOLOv7_vs_YOLOv5s6.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/compare_YOLOv7e6_vs_YOLOv5x6.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/compare_YOLOv7e6_vs_YOLOv5x6_half.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/instance.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/keypoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/reparameterization.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/visualization.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_aux.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/start.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/upload.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/upload.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/upload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/aws/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/aws/mime.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/aws/resume.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/aws/userdata.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/google_app_engine/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/google_app_engine/additional_requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/google_app_engine/app.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vid2img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yolo-v7-license-plate-detection.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_alpr.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_alpr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/get_coco.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/get_coco.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/result.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/result.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils_LP.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils_LP.py" afterDir="false" />
     </list>
+    <list id="746a9b82-0484-4b90-8f05-1fd6a3ffc41e" name="Cleaned" comment="Delete Useless Files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -213,13 +38,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/models/common.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/models/common.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2QmEl7DkJ7EhjOgai6SrmS0fPEF" />
   <component name="ProjectViewState">
@@ -233,19 +58,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "final",
-    "last_opened_file_path": "C:/Users/annal/PycharmProjects/BE-Project_Cpu",
+    "last_opened_file_path": "C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/static",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\static" />
+      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\test_data" />
       <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\ui" />
       <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\perfect_img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy" />
-      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\ui" />
+      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\templates" />
+      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\static" />
+      <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\src\char_classification" />
       <recent name="C:\Users\annal\PycharmProjects\BE-Project_Cpu - Copy\test_data" />
     </key>
   </component>
@@ -377,6 +206,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="85a33b8f-c95b-4891-83d7-c3c366c8b827" name="Changes" comment="" />
+      <changelist id="746a9b82-0484-4b90-8f05-1fd6a3ffc41e" name="Cleaned" comment="" />
       <created>1685950505224</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -410,7 +240,28 @@
       <option name="project" value="LOCAL" />
       <updated>1688927241279</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Delete old ui">
+      <created>1689015124897</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689015124897</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Comments Added/Deleted">
+      <created>1689226241941</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689226241941</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Delete Useless Files">
+      <created>1689616359763</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1689616359763</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -446,6 +297,9 @@
     <MESSAGE value="modifying for janice's cnn + change for proper display" />
     <MESSAGE value=".idea files update" />
     <MESSAGE value="ui + Front-end &amp; Back-end connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="ui + Front-end &amp; Back-end connection" />
+    <MESSAGE value="Delete old ui" />
+    <MESSAGE value="Comments Added/Deleted" />
+    <MESSAGE value="Delete Useless Files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete Useless Files" />
   </component>
 </project>

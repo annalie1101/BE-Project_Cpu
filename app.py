@@ -1,3 +1,4 @@
+import glob
 import os
 import shutil
 from flask import Flask, render_template, request
@@ -7,7 +8,7 @@ from models.experimental import attempt_load
 from src.char_classification.model import CNN_Model
 import main_alpr
 
-CHAR_CLASSIFICATION_WEIGHTS = 'test_data/newweight331.h5'
+CHAR_CLASSIFICATION_WEIGHTS = 'test_data/cnn_weights.h5'
 LP_weights = 'test_data/yolov7_weights_1000imgs_4classes_50epoch.pt'
 
 model_char = CNN_Model(trainable=False).model
@@ -26,10 +27,15 @@ def index():
 def process():
     file = request.files['image']
 
-    output_folder_path = "static"  # path where the processed images will be stored
+    output_folder_path = os.path.join(app.root_path, 'static')
+    os.makedirs(output_folder_path, exist_ok=True)
+
     if os.path.exists(output_folder_path):
-        shutil.rmtree(output_folder_path)
-    os.makedirs(output_folder_path)
+        file_pattern = os.path.join(output_folder_path, "*.jpg")
+        jpg_files = glob.glob(file_pattern)
+
+        for file_path in jpg_files:
+            os.remove(file_path)
 
     file.save('static/uploaded_image.jpg')
 

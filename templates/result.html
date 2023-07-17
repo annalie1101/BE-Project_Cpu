@@ -4,51 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="new.css">
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
+    <link rel="stylesheet" href="{{ url_for('static', filename='new.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 
-      th, td {
-        padding: 8px;
-        text-align: center;
-        border: 1px solid black;
-      }
-
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-
-      .red-text {
-        color: red;
-      }
-    </style>
     <title>Result</title>
 </head>
 <body>
-    <div style="text-align: center;" class="container">
-    <h2>ALPR <br>
-    <img src="{{ url_for('static', filename='alert.jpg') }}" alt="Image">
-    </h2>
-    <p>License Plate: {{ license_plate }}</p>
-    <table>
-        <tr>
-          <th>Original Image</th>
-          <th>Detection</th>
-          <th>Segmentation</th>
-          <th>CNN</th>
-        </tr>
-        <tr>
-          <td><img src="{{ url_for('static', filename='original_img.jpg') }}" alt="Image"></td>
-          <td><img src="{{ url_for('static', filename='detected_img.jpg') }}" alt="Image"></td>
-          <td><img src="{{ url_for('static', filename='segmented_img.jpg') }}" alt="Image"></td>
-          <td><img src="{{ url_for('static', filename='final_result.jpg') }}" alt="Image"></td>
-        </tr>
-    </table>
-    </div>
+    <div class="container">
+        <h2>Extraction Of License Plate Number</h2>
+        <div class="alert-image">
+            <img src="{{ url_for('static', filename='alert.jpg') }}" alt="Image">
+        </div>
+        <p class="license-plate"><span class="license-plate-label">License Plate:</span> <span class="license-plate-number"> {{ license_plate }}</span></p>
 
+        <table>
+            <tr>
+                <th>Original Image</th>
+                <th>Detection</th>
+                <th>Segmentation</th>
+                <th>CNN</th>
+            </tr>
+            <tr>
+                <td><img src="{{ url_for('static', filename='original_img.jpg') }}" alt="Image"></td>
+                <td><img src="{{ url_for('static', filename='detected_img.jpg') }}" alt="Image"></td>
+                <td><img src="{{ url_for('static', filename='segmented_img.jpg') }}" alt="Image"></td>
+                <td><img src="{{ url_for('static', filename='final_result.jpg') }}" alt="Image"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

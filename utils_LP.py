@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 
@@ -6,23 +8,8 @@ import yaml
 from Preprocess import preprocess, Hough_transform, rotation_angle, rotate_LP
 
 ALPHA_DICT = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'J', 9: 'K', 10: 'L', 11: 'M', 12: 'N',
-              13: 'P', 14: 'Q', 15: 'R', 16: 'S', 17: 'T', 18: 'U', 19: 'V', 20: 'W', 21: 'X', 22: 'Y', 23: 'Z',
+              13: 'P', 14: 'Q', 15: 'R', 16: 'S', 17: 'T', 18: 'U', 19: 'V', 20: 'W', 21: 'X', 22: 'Y', 23: '2',
               24: '0', 25: '1', 26: '2', 27: '3', 28: '4', 29: '5', 30: '6',  31: '7', 32: '8', 33: '9'}
-
-
-def create_yaml():
-    """
-    Creates a YAML file named data.yaml
-    """
-    data_yaml = dict(
-        train='../input/vietnamese-license-plate/train',
-        val='../input/vietnamese-license-plate/valid',
-        nc=1,
-        names=['License Plate']
-    )
-
-    with open('data.yaml', 'w') as outfile:
-        yaml.dump(data_yaml, outfile, default_flow_style=True)
 
 
 def character_recog_CNN(model, img, dict=ALPHA_DICT):
@@ -78,30 +65,24 @@ def crop_n_rotate_LP(source_img, x1, y1, x2, y2):
     w = int(x2 - x1)
     h = int(y2 - y1)
     ratio = w / h
-    print ('ratio',ratio)
-    #if 0.8 <= ratio <= 1.5 or 3.5 <= ratio <= 6.5:
-    #if 0.8 <= ratio <= 2 or 3.5 <= ratio <= 6.5:
     cropped_LP = source_img[y1:y1 + h, x1:x1 + w]
-    cropped_LP_copy = cropped_LP.copy()
-    # cv2.imwrite('doc/cropped_LP2.png',cropped_LP)
+    cv2.imwrite(os.path.join("test", "6cropped_LP.jpg"), cropped_LP)
+    hough_lines_img = cropped_LP.copy()
 
-    imgGrayscaleplate, imgThreshplate = preprocess(cropped_LP)
+    imgThreshplate = preprocess(cropped_LP)
     canny_image = cv2.Canny(imgThreshplate, 250, 255)  # Canny Edge
-    kernel = np.ones((3, 3), np.uint8)
-    dilated_image = cv2.dilate(canny_image, kernel, iterations=2)
+    cv2.imwrite(os.path.join("test", "11canny_image.jpg"), canny_image)
 
-    linesP = Hough_transform(dilated_image, nol=6)
+    linesP = Hough_transform(canny_image, hough_lines_img, nol=4)
     for i in range(0, len(linesP)):
         l = linesP[i][0].astype(int)
-        # cv2.line(cropped_LP_copy, (l[0], l[1]), (l[2], l[3]), (0, 0, 255), 3, cv2.LINE_AA)
+        cv2.line(hough_lines_img, (l[0], l[1]), (l[2], l[3]), (0, 0, 255), 3, cv2.LINE_AA)
 
+    cv2.imwrite(os.path.join("test", "12hough_lines_img.jpg"), hough_lines_img)
     angle = rotation_angle(linesP)
-    rotate_thresh = rotate_LP(imgThreshplate, angle)
     LP_rotated = rotate_LP(cropped_LP, angle)
-    #else:
-    #    angle, rotate_thresh, LP_rotated = None, None, None
 
-    return angle, rotate_thresh, LP_rotated
+    return angle, LP_rotated
 
 
 def main():

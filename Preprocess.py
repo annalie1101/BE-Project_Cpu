@@ -1,15 +1,14 @@
 import math
+import os
 
 import cv2
 import numpy as np
 
-# module level variables ##########################################################################
 GAUSSIAN_SMOOTH_FILTER_SIZE = (5, 5)  # The larger the size, the more blurred
 ADAPTIVE_THRESH_BLOCK_SIZE = 19
 ADAPTIVE_THRESH_WEIGHT = 9
 
 
-###################################################################################################
 def preprocess(imgOriginal):
     '''
     Converts RGB img to grayscale, then maximizes contrast, blurs using Gaussian Filter
@@ -19,21 +18,22 @@ def preprocess(imgOriginal):
     :return: imgGrayscale, imgThresh
     '''
     imgGrayscale = extractValue(imgOriginal)  # Converts img to grayscale
-    # imgGrayscale = cv2.cvtColor(imgOriginal,cv2.COLOR_BGR2GRAY)  # should use HSV color system
+    cv2.imwrite(os.path.join("test", "7imgGrayscale.jpg"), imgGrayscale)
     imgMaxContrastGrayscale = maximizeContrast(imgGrayscale)  # to make the number plate more prominent, easy to separate from the background
-    # cv2.imwrite("imgGrayscalePlusTopHatMinusBlackHat.jpg",imgMaxContrastGrayscale)
+    cv2.imwrite(os.path.join("test", "8imgMaxContrastGrayscale.jpg"), imgMaxContrastGrayscale)
     height, width = imgGrayscale.shape
 
     imgBlurred = np.zeros((height, width, 1), np.uint8)
     imgBlurred = cv2.GaussianBlur(imgMaxContrastGrayscale, GAUSSIAN_SMOOTH_FILTER_SIZE, 0)
-    # cv2.imwrite("gauss.jpg",imgBlurred)
+    cv2.imwrite(os.path.join("test", "9imgBlurred.jpg"), imgBlurred)
     # Smooth the image with a 5x5 Gaussian filter, sigma = 0
 
     imgThresh = cv2.adaptiveThreshold(imgBlurred, 255.0, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,
                                       ADAPTIVE_THRESH_BLOCK_SIZE, ADAPTIVE_THRESH_WEIGHT)
+    cv2.imwrite(os.path.join("test", "10imgThresh.jpg"), imgThresh)
 
     # Create binary image
-    return imgGrayscale, imgThresh
+    return imgThresh
 
 
 def extractValue(imgOriginal):
@@ -64,16 +64,13 @@ def maximizeContrast(imgGrayscale):
 
     imgTopHat = cv2.morphologyEx(imgGrayscale, cv2.MORPH_TOPHAT, structuringElement,
                                  iterations=10)  # highlight bright details in dark background
-    # cv2.imwrite("tophat.jpg",imgTopHat)
     imgBlackHat = cv2.morphologyEx(imgGrayscale, cv2.MORPH_BLACKHAT, structuringElement,
                                    iterations=10)  # Highlight dark details in light background
-    # cv2.imwrite("blackhat.jpg",imgBlackHat)
 
     # Add grayscale and the top-hat image to obtain an intermediate image
     imgGrayscalePlusTopHat = cv2.add(imgGrayscale, imgTopHat)
     imgGrayscalePlusTopHatMinusBlackHat = cv2.subtract(imgGrayscalePlusTopHat, imgBlackHat)
 
-    # cv2.imshow("imgGrayscalePlusTopHatMinusBlackHat",imgGrayscalePlusTopHatMinusBlackHat)
     return imgGrayscalePlusTopHatMinusBlackHat
 
 
@@ -95,15 +92,15 @@ def rotation_angle(linesP):
         l = linesP[i][0].astype(int)
         p1 = (l[0], l[1])
         p2 = (l[2], l[3])
-        doi = (l[1] - l[3])
-        ke = abs(l[0] - l[2])
+        doi = (l[1] - l[3])  # difference of y-coords (not abs inorder to retain directional info of horizontal line)
+        ke = abs(l[0] - l[2])  # absolute difference of x-coords
         angle = math.atan(doi / ke) * (180.0 / math.pi)
-        # If abs(angle) > 45 degrees, it adjusts the angle to be within -45 to 45 degrees.
+        # Adjusts the angle to be within -45 to 45 degrees which covers both + and n- angles
+        # Thus easier to handle lines that are slanted in either direction without losing directional info
         if abs(angle) > 45:  # If they find vertical lines
-            angle = (90 - abs(angle)) * angle / abs(angle)
+            angle = - (90 - abs(angle)) * angle / abs(angle)
         angles.append(angle)
 
-    angles = list(filter(lambda x: (abs(x > 3) and abs(x < 15)), angles))
     if not angles:  # If the angles is empty, assign a default angle of 0
         angles = list([0])
     angle = np.array(angles).mean()
@@ -120,12 +117,12 @@ def rotate_LP(img, angle):
     '''
     height, width = img.shape[:2]
     ptPlateCenter = width / 2, height / 2
-    rotationMatrix = cv2.getRotationMatrix2D(ptPlateCenter, -angle, 1.0)
+    rotationMatrix = cv2.getRotationMatrix2D(ptPlateCenter, -angle, 1.0)  # 1.0 = same size output
     rotated_img = cv2.warpAffine(img, rotationMatrix, (width, height))
     return rotated_img
 
 
-def Hough_transform(threshold_image, nol=6):
+def Hough_transform(threshold_image, all_hough_lines_img, nol=4):
     '''
     Performs the Hough transform on a thresholded image to detect lines
     Returns an array of line coordinates and lengths.
@@ -136,6 +133,7 @@ def Hough_transform(threshold_image, nol=6):
     linesP: array(xyxy,line_length)
         array of coordinates and length
     '''
+    all_hough_lines_img_copy = all_hough_lines_img.copy()
     h, w = threshold_image.shape[:2]
     linesP = cv2.HoughLinesP(threshold_image, 1, np.pi / 180, 50, None, 50, 10)
     dist = []
@@ -143,10 +141,10 @@ def Hough_transform(threshold_image, nol=6):
         # Calculates the lengths of the lines
         l = linesP[i][0]
         d = math.sqrt((l[0] - l[2]) ** 2 + (l[1] - l[3]) ** 2)
+        # Before statement reduces processing of shorter unimportant lines
         if d < 0.5 * max(h, w):
             d = 0
         dist.append(d)
-        # cv2.line(threshold_image, (l[0], l[1]), (l[2], l[3]), (0, 0, 255), 3, cv2.LINE_AA)
 
     dist = np.array(dist).reshape(-1, 1, 1)
     linesP = np.concatenate([linesP, dist], axis=2)

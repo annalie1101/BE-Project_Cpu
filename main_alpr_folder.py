@@ -1,3 +1,5 @@
+import glob
+
 import cv2
 import numpy as np
 import os
@@ -7,21 +9,19 @@ from detect import detect
 from utils_LP import character_recog_CNN, crop_img, crop_n_rotate_LP
 
 def process_image(image_path, model_LP, model_char, device):
-    output_folder_path = "static"  # Path where the processed images will be saved
+    # output_folder_path = "static"  # Path where the processed images will be saved
 
     source_img = cv2.imread(image_path)
-    cv2.imwrite(os.path.join("test", "1source_img.jpg"), source_img)
-    original_img = cv2.resize(source_img, dsize=None, fx=0.5, fy=0.5)  # Resize to half its size
-    cv2.imwrite(os.path.join(output_folder_path, "original_img.jpg"), original_img)
+    # cv2.imwrite(os.path.join("test", "1source_img.jpg"), source_img)
     image_name = os.path.basename(image_path)
     print('########################################################################')
     print(image_name)
 
     #################################################### Detection ####################################################
 
-    print('Detecting motorcycle...')
+    # print('Detecting motorcycle...')
     pred_motorcycle, motorcycle_detected_img = detect(model_LP, source_img, device, imgsz=640, classes=1)
-    cv2.imwrite(os.path.join("test", "2motorcycle_detected_img.jpg"), motorcycle_detected_img)
+    # cv2.imwrite(os.path.join("test", "2motorcycle_detected_img.jpg"), motorcycle_detected_img)
     if pred_motorcycle is None:
         print('No motorcycle detected.')
     else:
@@ -31,33 +31,33 @@ def process_image(image_path, model_LP, model_char, device):
             x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
             motorcycle_cropped_img = crop_img(source_img, x1, y1, x2, y2)
             motorcycle_cropped_img_copy = motorcycle_cropped_img.copy()
-            cv2.imwrite(os.path.join("test", "3motorcycle_cropped_img.jpg"), motorcycle_cropped_img)
+            # cv2.imwrite(os.path.join("test", "3motorcycle_cropped_img.jpg"), motorcycle_cropped_img)
 
-            print('Detecting Helmet/No Helmet...')
+            # print('Detecting Helmet/No Helmet...')
             helmet = 'Detection of Helmet/No Helmet Failed'
             pred_head, head_detected_img = detect(model_LP, motorcycle_cropped_img, device, imgsz=640, classes=2)
             if pred_head is None:
                 pred_head, head_detected_img = detect(model_LP, motorcycle_cropped_img, device, imgsz=640, classes=3)
-                cv2.imwrite(os.path.join("test", "4head_detected_img_no_helmet.jpg"), head_detected_img)
+                # cv2.imwrite(os.path.join("test", "4head_detected_img.jpg"), head_detected_img)
 
                 if pred_head is not None:
                     helmet = 'No Helmet Detected'
                     shutil.copyfile('test_data/nohelmet.jpg', 'static/alert.jpg')
             else:
-                cv2.imwrite(os.path.join("test", "4head_detected_img_helmet.jpg"), head_detected_img)
+                # cv2.imwrite(os.path.join("test", "5head_detected_img.jpg"), head_detected_img)
                 helmet = 'Helmet Detected'
                 shutil.copyfile('test_data/helmet.jpg', 'static/alert.jpg')
 
-            print(helmet)
+            # print(helmet)
 
-            print('Detecting LP...')
+            # print('Detecting LP...')
             pred, LP_detected_img = detect(model_LP, head_detected_img, device, imgsz=640, classes=0)
-            cv2.imwrite(os.path.join("test", "5LP_detected_img.jpg"), LP_detected_img)
+            # cv2.imwrite(os.path.join("test", "6LP_detected_img.jpg"), LP_detected_img)
             if pred is None:
                 print('No LP detected.')
             else:
-                detected_img = cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5)
-                cv2.imwrite(os.path.join(output_folder_path, "detected_img.jpg"), detected_img)
+                detected_img = cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5) # Resize to half its size
+                # cv2.imwrite(os.path.join(output_folder_path, "detected_img.jpg"), detected_img)
 
                 c = 0
                 lplist = []
@@ -68,30 +68,29 @@ def process_image(image_path, model_LP, model_char, device):
 
                     x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
                     angle, LP_rotated = crop_n_rotate_LP(motorcycle_cropped_img_copy, x1, y1, x2, y2)
-                    cv2.imwrite(os.path.join("test", "13LP_rotated.jpg"), LP_rotated)
+                    # cv2.imwrite(os.path.join("test", "9LP_rotated.jpg"), LP_rotated)
 
                     if (LP_rotated is None):  # If the rotation fails
                         continue
 
-                    ################################## Preprocessing for Segmentation #################################
+                    ########################################## Preprocessing ##########################################
 
                     LP_rotated_copy_for_segmentation = LP_rotated.copy()
                     gray_image = cv2.cvtColor(LP_rotated_copy_for_segmentation, cv2.COLOR_BGR2GRAY)
-                    cv2.imwrite(os.path.join("test", "14gray_image.jpg"), gray_image)
 
                     _, binary = cv2.threshold(gray_image, 255, 255, cv2.THRESH_OTSU)  # Thresholding to get a binary img
-                    cv2.imwrite(os.path.join("test", "15binary.jpg"), binary)
+                    # cv2.imwrite(os.path.join("test", "8binary.jpg"), binary)
 
                     ################################### Segmentation using Contours ###################################
 
                     LP_rotated_copy = LP_rotated.copy()
                     cont, hier = cv2.findContours(binary, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)  # Contours = boundaries
-                    cont = sorted(cont, key=cv2.contourArea, reverse=True)[:30]  # Contours sorted based on area and limited to the top 30 contours.
+                    cont = sorted(cont, key=cv2.contourArea, reverse=True)[:30]  # Contours sorted based on area and limited to the top 17 contours.
 
                     cv2.drawContours(LP_rotated_copy, cont, -1, (100, 255, 255), 1)  # Draw (till -1 i.e all) contours
-                    cv2.imwrite(os.path.join("test", "16contours.jpg"), LP_rotated_copy)
+                    # cv2.imwrite(os.path.join("test", "10LP_rotated_copy_contours.jpg"), LP_rotated_copy)
 
-                    ################################## Filter out possible characters #################################
+                    ################################## Filter out possible characters ##################################
 
                     char_x = []
                     height, width, _ = LP_rotated_copy.shape
@@ -103,7 +102,7 @@ def process_image(image_path, model_LP, model_char, device):
                         ratiochar = w / h
                         char_area = w * h
 
-                        if h < 0.175 * height:  # Filter out nails
+                        if h < 0.175 * height: # Filter out nails
                             continue
                         # char_area between (0.1/10th of LParea and 1/10th of LParea)
                         # And ratiochar(h,w) between (5x,x) and (x,1.75x)
@@ -155,29 +154,27 @@ def process_image(image_path, model_LP, model_char, device):
                     for i, char in enumerate(char_double_line):
                         x, y, w, h = char
                         cv2.rectangle(LP_rotated, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                        imgROI = binary[y:y + h, x:x + w]  # Extracts single character region
-                        cv2.imwrite(os.path.join("test", "17imgROI.jpg"), imgROI)
+                        imgROI = binary[y:y + h, x:x + w]
                         text = character_recog_CNN(model_char, imgROI)
                         strFinalString += text
 
-                    x1, y1 = int(xyxy[0]), int(xyxy[1])
-                    cv2.putText(LP_detected_img, strFinalString, (x1 - 65, y1 - 25), cv2.FONT_HERSHEY_DUPLEX, 2,
+                    cv2.putText(LP_detected_img, strFinalString, (x1, y1 - 20), cv2.FONT_HERSHEY_DUPLEX, 2,
                                 (255, 255, 0),
                                 2)
 
-                    cv2.imwrite(os.path.join("test", "18segmented.jpg"), LP_rotated)
-                    cv2.imwrite(os.path.join(output_folder_path, "segmented_img.jpg"), LP_rotated)
+                    # cv2.imwrite(os.path.join("test", "14LP_rotated_segmented.jpg"), LP_rotated)
+                    # cv2.imwrite(os.path.join(output_folder_path, "segmented_img.jpg"), LP_rotated)
                     print('License Plate_{}:'.format(c), strFinalString)
                     lplist.append(strFinalString)
                     c += 1
 
-                cv2.imwrite(os.path.join("test", "19LP_detected_img.jpg"), LP_detected_img)
+                # cv2.imwrite(os.path.join("test", "15LP_detected_img.jpg"), LP_detected_img)
                 final_result = cv2.resize(LP_detected_img, dsize=None, fx=0.5, fy=0.5)
-                cv2.imwrite(os.path.join(output_folder_path, "final_result.jpg"), final_result)
+                # cv2.imwrite(os.path.join(output_folder_path, "final_result.jpg"), final_result)
 
-                print('Finally Done!')
+                # print('Finally Done!')
 
-                return lplist[0]
+                return LP_rotated, lplist[0]
 
 import torch
 from models.experimental import attempt_load
@@ -193,17 +190,23 @@ def main():
     device = torch.device('cpu')
     model_LP = attempt_load(LP_weights, map_location=device)
 
-    output_folder_path = "static"  # path where the processed images will be stored
-    if os.path.exists(output_folder_path):
-        shutil.rmtree(output_folder_path)
-    os.makedirs(output_folder_path)
+    # output_folder_path = "static"  # path where the processed images will be stored
+    # if os.path.exists(output_folder_path):
+    #     shutil.rmtree(output_folder_path)
+    # os.makedirs(output_folder_path)
 
     test_folder_path = "test"  # path where the processed images will be stored
     if os.path.exists(test_folder_path):
         shutil.rmtree(test_folder_path)
     os.makedirs(test_folder_path)
 
-    license_plate = process_image('Dataset/perfect/0879.jpg', model_LP, model_char, device)
+    image_folder_path = 'C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/Dataset/perfect/*.jpg'
+    image_paths = glob.glob(image_folder_path)
+
+    for path in image_paths:
+        output_image, license_plate = process_image(path, model_LP, model_char, device)
+        image_name = os.path.basename(path)
+        cv2.imwrite(os.path.join(test_folder_path, image_name), output_image)
 
 if __name__ == "__main__":
     main()

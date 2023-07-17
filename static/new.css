@@ -1,0 +1,79 @@
+body {
+    font-family: 'Ysabeau Office', sans-serif;
+    background-color: #D3D3D3;
+    margin: 0;
+    padding: 20px;
+    background-image: url('background.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color:#D3D3D3;
+        padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid  black;
+
+}
+
+h2 {
+    font-family: 'Bungee', cursive;
+    color:black;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.alert-image {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+        text-align: center;
+}
+
+.alert-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.license-plate {
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+.license-plate-label {
+    color: black;
+  }
+  
+  .license-plate-number {
+    color: darkblue;
+  }
+  
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th, td {
+    font-family: 'Dancing Script', cursive;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 30px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

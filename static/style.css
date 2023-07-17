@@ -1,0 +1,101 @@
+body {
+text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    color: #181818;
+    background: url('background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
+    border-color: #696969;
+    border: #696969;
+}
+
+form {
+text-align: center;
+    max-width: 400px;
+    margin: 100px auto 0; 
+    background-color: #D3D3D3;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #696969;
+    border: 1px solid #101010;
+  }
+  
+input[type="file"] {
+text-align: center;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #696969;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+
+    font-family:"Lucida Console";
+    font-weight: bold;
+    background-color:#808080;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #696969;
+}
+
+.header {
+    text-transform: uppercase; 
+    font-family: 'Bungee', cursive;
+    text-align: center;
+    color:#181818;
+     font-size: 30px;
+  }
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 30px;
+    }
+    
+    form {
+        max-width: 90%;
+    }
+}
+
+.file-input-container {
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border: 2px solid #696969;
+    border-radius: 4px;
+    padding: 8px 12px;
+    background-color: white;
+  }
+  
+  .file-input-container label {
+    text-align: center;
+    display: block;
+    padding: 8px 12px;
+    background-color: white;
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .file-input-container input[type="file"] {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
