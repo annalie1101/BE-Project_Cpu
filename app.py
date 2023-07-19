@@ -1,6 +1,5 @@
 import glob
 import os
-import shutil
 from flask import Flask, render_template, request
 import torch
 

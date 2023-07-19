@@ -179,6 +179,7 @@ def process_image(image_path, model_LP, model_char, device):
 
                 return lplist[0]
 
+import glob
 import torch
 from models.experimental import attempt_load
 from src.char_classification.model import CNN_Model
@@ -195,8 +196,11 @@ def main():
 
     output_folder_path = "static"  # path where the processed images will be stored
     if os.path.exists(output_folder_path):
-        shutil.rmtree(output_folder_path)
-    os.makedirs(output_folder_path)
+        file_pattern = os.path.join(output_folder_path, "*.jpg")
+        jpg_files = glob.glob(file_pattern)
+
+        for file_path in jpg_files:
+            os.remove(file_path)
 
     test_folder_path = "test"  # path where the processed images will be stored
     if os.path.exists(test_folder_path):

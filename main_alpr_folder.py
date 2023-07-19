@@ -9,7 +9,6 @@ from detect import detect
 from utils_LP import character_recog_CNN, crop_img, crop_n_rotate_LP
 
 def process_image(image_path, model_LP, model_char, device):
-    # output_folder_path = "static"  # Path where the processed images will be saved
 
     source_img = cv2.imread(image_path)
     # cv2.imwrite(os.path.join("test", "1source_img.jpg"), source_img)
@@ -42,11 +41,9 @@ def process_image(image_path, model_LP, model_char, device):
 
                 if pred_head is not None:
                     helmet = 'No Helmet Detected'
-                    shutil.copyfile('test_data/nohelmet.jpg', 'static/alert.jpg')
             else:
                 # cv2.imwrite(os.path.join("test", "5head_detected_img.jpg"), head_detected_img)
                 helmet = 'Helmet Detected'
-                shutil.copyfile('test_data/helmet.jpg', 'static/alert.jpg')
 
             # print(helmet)
 
@@ -174,7 +171,7 @@ def process_image(image_path, model_LP, model_char, device):
 
                 # print('Finally Done!')
 
-                return LP_rotated, lplist[0]
+                return detected_img, lplist[0]
 
 import torch
 from models.experimental import attempt_load
@@ -190,11 +187,6 @@ def main():
     device = torch.device('cpu')
     model_LP = attempt_load(LP_weights, map_location=device)
 
-    # output_folder_path = "static"  # path where the processed images will be stored
-    # if os.path.exists(output_folder_path):
-    #     shutil.rmtree(output_folder_path)
-    # os.makedirs(output_folder_path)
-
     test_folder_path = "test"  # path where the processed images will be stored
     if os.path.exists(test_folder_path):
         shutil.rmtree(test_folder_path)
@@ -204,9 +196,9 @@ def main():
     image_paths = glob.glob(image_folder_path)
 
     for path in image_paths:
-        output_image, license_plate = process_image(path, model_LP, model_char, device)
+        detected_image, license_plate = process_image(path, model_LP, model_char, device)
         image_name = os.path.basename(path)
-        cv2.imwrite(os.path.join(test_folder_path, image_name), output_image)
+        cv2.imwrite(os.path.join(test_folder_path, image_name), detected_image)
 
 if __name__ == "__main__":
     main()
