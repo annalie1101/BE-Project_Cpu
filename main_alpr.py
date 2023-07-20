@@ -207,7 +207,7 @@ def main():
         shutil.rmtree(test_folder_path)
     os.makedirs(test_folder_path)
 
-    license_plate = process_image('Dataset/perfect/0879.jpg', model_LP, model_char, device)
+    license_plate = process_image('Dataset/test/0879.jpg', model_LP, model_char, device)
 
 if __name__ == "__main__":
     main()

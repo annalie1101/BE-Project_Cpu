@@ -45,7 +45,7 @@ def process_image(image_path, model_LP, model_char, device):
                 # cv2.imwrite(os.path.join("test", "5head_detected_img.jpg"), head_detected_img)
                 helmet = 'Helmet Detected'
 
-            # print(helmet)
+            print(helmet)
 
             # print('Detecting LP...')
             pred, LP_detected_img = detect(model_LP, head_detected_img, device, imgsz=640, classes=0)
@@ -192,7 +192,7 @@ def main():
         shutil.rmtree(test_folder_path)
     os.makedirs(test_folder_path)
 
-    image_folder_path = 'C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/Dataset/perfect/*.jpg'
+    image_folder_path = 'C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/Dataset/test/*.jpg'
     image_paths = glob.glob(image_folder_path)
 
     for path in image_paths:
