@@ -170,8 +170,9 @@ def process_image(image_path, model_LP, model_char, device):
                 # cv2.imwrite(os.path.join(output_folder_path, "final_result.jpg"), final_result)
 
                 # print('Finally Done!')
-
-                return detected_img, lplist[0]
+                if helmet is None or detected_img is None or lplist[0] is None:
+                    return None
+                return helmet, detected_img, lplist[0]
 
 import torch
 from models.experimental import attempt_load
@@ -192,13 +193,58 @@ def main():
         shutil.rmtree(test_folder_path)
     os.makedirs(test_folder_path)
 
-    image_folder_path = 'C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/Dataset/test/*.jpg'
+    try:
+        with open("helmet.txt", 'w') as file:
+            file.write("With Helmet:")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    try:
+        with open("nohelmet.txt", 'w') as file:
+            file.write("Without Helmet:")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    try:
+        with open("unrecognisable.txt", 'w') as file:
+            file.write("System Error:")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    image_folder_path = 'C:/Users/annal/PycharmProjects/BE-Project_Cpu - Copy/Dataset/test_folder/*.jpg'
     image_paths = glob.glob(image_folder_path)
 
     for path in image_paths:
-        detected_image, license_plate = process_image(path, model_LP, model_char, device)
+        result = process_image(path, model_LP, model_char, device)
         image_name = os.path.basename(path)
-        cv2.imwrite(os.path.join(test_folder_path, image_name), detected_image)
+
+        if result is not None:
+            helmet_status, detected_image, license_plate = result
+            cv2.imwrite(os.path.join(test_folder_path, image_name), detected_image)
+
+            if helmet_status == "Detection of Helmet/No Helmet Failed" or license_plate is None:
+                try:
+                    with open("unrecognisable.txt", 'a') as file:
+                        file.write("\n" + image_name)
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+            elif helmet_status == "Helmet Detected":
+                try:
+                    with open("helmet.txt", 'a') as file:
+                        file.write("\n" + image_name + ": " + license_plate)
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+            elif helmet_status == "No Helmet Detected":
+                try:
+                    with open("nohelmet.txt", 'a') as file:
+                        file.write("\n" + image_name + ": " + license_plate)
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+        else:
+            try:
+                with open("unrecognisable.txt", 'a') as file:
+                    file.write("\n" + image_name)
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85a33b8f-c95b-4891-83d7-c3c366c8b827" name="Changes" comment="Final Changes">
+    <list default="true" id="85a33b8f-c95b-4891-83d7-c3c366c8b827" name="Changes" comment="Test Images">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_alpr.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_alpr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_alpr_folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_alpr_folder.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -267,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689798548995</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Test Images">
+      <created>1689865033195</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1689865033195</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,6 +313,7 @@
     <MESSAGE value="Comments Added/Deleted" />
     <MESSAGE value="Delete Useless Files" />
     <MESSAGE value="Final Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Changes" />
+    <MESSAGE value="Test Images" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test Images" />
   </component>
 </project>
